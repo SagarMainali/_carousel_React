@@ -3,10 +3,9 @@ import './style.css'
 // import Carousel from "react-multi-carousel";
 // import "react-multi-carousel/lib/styles.css";
 
-
 const App = () => {
   let index, carouselItems = []
-  for (index = 0; index < 20; index++) {
+  for (index = 0; index < 10; index++) {
     carouselItems.push(`Item_${index + 1}`)
   }
   // const responsive = {
@@ -28,20 +27,33 @@ const App = () => {
   //     items: 1
   //   }
   // };
+  // responsive={responsive}
+  // swipeable={true}
+  // containerClass='carousel-container'
   return (
-    <div
-      className='carousel-container'
-    // responsive={responsive}
-    // swipeable={true}
-    // containerClass='carousel-container'
-    >
-      {carouselItems.map((element, index) =>
-        <div key={index} className='carousel-item'>
-          {element}
-        </div>
-      )
-      }
-    </div>
+    <>
+      <h3>With CSS</h3>
+      <div className='carousel-container'>
+        {carouselItems.map((element, index) =>
+          <div key={index} className='carousel-item'>
+            {element}
+          </div>
+        )
+        }
+      </div>
+
+      <h3>With JS</h3>
+      <div className='carousel-container'>
+        <span className='left'>&lt;</span>
+        {carouselItems.map((element, index) =>
+          <div key={index} className='carousel-item'>
+            {element}
+          </div>
+        )
+        }
+        <span className='right'>&gt;</span>
+      </div>
+    </>
   )
 }
 
