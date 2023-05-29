@@ -1,11 +1,16 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import './style.css'
 // import Carousel from "react-multi-carousel";
 // import "react-multi-carousel/lib/styles.css";
 
 const App = () => {
+
+  const carousel_container = useRef()
+  const carousel_item = useRef()
+
   let index, carouselItems = []
-  for (index = 0; index < 10; index++) {
+
+  for (index = 0; index < 15; index++) {
     carouselItems.push(`Item_${index + 1}`)
   }
   // const responsive = {
@@ -30,6 +35,22 @@ const App = () => {
   // responsive={responsive}
   // swipeable={true}
   // containerClass='carousel-container'
+
+  function slider(direction) {
+
+    const temp_container = carousel_container.current
+    const temp_item = carousel_item.current
+
+    let pxToScroll = direction === 'right'
+      ? temp_container.scrollLeft + (temp_item.offsetWidth + 16)
+      : temp_container.scrollLeft - (temp_item.offsetWidth + 16)
+
+    temp_container.scrollTo({
+      left: pxToScroll,
+      behavior: 'smooth'
+    })
+  }
+
   return (
     <>
       <h3>With CSS</h3>
@@ -43,15 +64,17 @@ const App = () => {
       </div>
 
       <h3>With JS</h3>
-      <div className='carousel-container'>
-        <span className='left'>&lt;</span>
-        {carouselItems.map((element, index) =>
-          <div key={index} className='carousel-item'>
-            {element}
-          </div>
-        )
-        }
-        <span className='right'>&gt;</span>
+      <div className="carousel-container-main">
+        <span className='left' onClick={() => slider('left')}>&lt;</span>
+        <div className='carousel-container' ref={carousel_container}>
+          {carouselItems.map((item, index) =>
+            <div key={index} className='carousel-item' ref={carousel_item}>
+              {item}
+            </div>
+          )
+          }
+        </div>
+        <span className='right' onClick={() => slider('right')}>&gt;</span>
       </div>
     </>
   )
