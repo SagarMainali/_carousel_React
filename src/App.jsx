@@ -38,15 +38,34 @@ const App = () => {
 
   function slider(direction) {
 
-    const temp_container = carousel_container.current
-    const temp_item = carousel_item.current
+    const container = carousel_container.current
+    const scroll_position = container.scrollLeft
+    const pxToScroll_fixed = carousel_item.current.offsetWidth + 16
+    let pxToScroll_dynamic
 
-    let pxToScroll = direction === 'right'
-      ? temp_container.scrollLeft + (temp_item.offsetWidth + 16)
-      : temp_container.scrollLeft - (temp_item.offsetWidth + 16)
+    if (scroll_position % pxToScroll_fixed !== 0) {
+      const times = parseInt(scroll_position / pxToScroll_fixed) + 1
+      if (direction === 'right') {
+        pxToScroll_dynamic = scroll_position + ((pxToScroll_fixed * times) - scroll_position)
+      }
+      else {
+        const unscrolled_px = (pxToScroll_fixed * times) - scroll_position
+        const scrolled_px = pxToScroll_fixed - unscrolled_px
+        pxToScroll_dynamic = scroll_position - scrolled_px
+        
+      }
+    }
+    // else if (scroll_position + container.offsetWidth + 5 >= container.scrollWidth) {
+    //   console.log('first')
+    // }
+    else {
+      pxToScroll_dynamic = direction === 'right'
+        ? scroll_position + pxToScroll_fixed
+        : scroll_position - pxToScroll_fixed
+    }
 
-    temp_container.scrollTo({
-      left: pxToScroll,
+    container.scrollTo({
+      left: pxToScroll_dynamic,
       behavior: 'smooth'
     })
   }
