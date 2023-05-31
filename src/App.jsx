@@ -46,18 +46,19 @@ const App = () => {
     if (scroll_position % pxToScroll_fixed !== 0) {
       const times = parseInt(scroll_position / pxToScroll_fixed) + 1
       if (direction === 'right') {
-        pxToScroll_dynamic = scroll_position + ((pxToScroll_fixed * times) - scroll_position)
+        if ((scroll_position + container.offsetWidth + 5) >= container.scrollWidth) {
+          pxToScroll_dynamic = 0
+        } else {
+          pxToScroll_dynamic = scroll_position + ((pxToScroll_fixed * times) - scroll_position)
+        }
       }
       else {
         const unscrolled_px = (pxToScroll_fixed * times) - scroll_position
         const scrolled_px = pxToScroll_fixed - unscrolled_px
         pxToScroll_dynamic = scroll_position - scrolled_px
-        
       }
     }
-    // else if (scroll_position + container.offsetWidth + 5 >= container.scrollWidth) {
-    //   console.log('first')
-    // }
+
     else {
       pxToScroll_dynamic = direction === 'right'
         ? scroll_position + pxToScroll_fixed
