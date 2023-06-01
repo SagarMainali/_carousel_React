@@ -9,7 +9,7 @@ h3 {
      margin: 10px 0;
 }
 
-.carousel-container-main{
+.carousel-container-main {
      position: relative;
 }
 
@@ -29,7 +29,8 @@ h3 {
      display: none;
 }
 
-.carousel-item {
+.carousel-item,
+.carousel-item-auto {
      height: 200px;
      min-width: 200px;
      border-radius: 6px;
@@ -38,6 +39,11 @@ h3 {
      align-items: center;
      color: white;
      background-color: rgb(131, 18, 131);
+}
+
+.carousel-item-auto {
+     height: 400px;
+     min-width: 100%;
 }
 
 span {

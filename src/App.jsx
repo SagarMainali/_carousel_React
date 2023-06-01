@@ -1,5 +1,8 @@
 import React, { useRef } from 'react'
 import './style.css'
+import CarouselCss from './CarouselCSS'
+import CarouselJs from './CarouselJs'
+import CarouselAuto from './CarouselAuto'
 
 const App = () => {
 
@@ -17,6 +20,7 @@ const App = () => {
     const container = carousel_container.current
     const scroll_position = container.scrollLeft
     const pxToScroll_fixed = carousel_item.current.offsetWidth + 16
+
     let pxToScroll_dynamic
 
     if (scroll_position % pxToScroll_fixed !== 0) {
@@ -49,29 +53,9 @@ const App = () => {
 
   return (
     <>
-      <h3>With CSS</h3>
-      <div className='carousel-container'>
-        {carouselItems.map((element, index) =>
-          <div key={index} className='carousel-item'>
-            {element}
-          </div>
-        )
-        }
-      </div>
-
-      <h3>With JS</h3>
-      <div className="carousel-container-main">
-        <span className='left' onClick={() => slider('left')}>&lt;</span>
-        <div className='carousel-container' ref={carousel_container}>
-          {carouselItems.map((item, index) =>
-            <div key={index} className='carousel-item' ref={carousel_item}>
-              {item}
-            </div>
-          )
-          }
-        </div>
-        <span className='right' onClick={() => slider('right')}>&gt;</span>
-      </div>
+      <CarouselCss carouselItems={carouselItems} />
+      <CarouselJs carouselItems={carouselItems} slider={slider} carousel_container={carousel_container} carousel_item={carousel_item} />
+      <CarouselAuto carouselItems={carouselItems} slider={slider} carousel_container={carousel_container} carousel_item={carousel_item} />
     </>
   )
 }
