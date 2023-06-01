@@ -55,7 +55,7 @@ const App = () => {
     <>
       <CarouselCss carouselItems={carouselItems} />
       <CarouselJs carouselItems={carouselItems} slider={slider} carousel_container={carousel_container} carousel_item={carousel_item} />
-      <CarouselAuto carouselItems={carouselItems} slider={slider} carousel_container={carousel_container} carousel_item={carousel_item} />
+      <CarouselAuto carouselItems={carouselItems} carousel_container={carousel_container} carousel_item={carousel_item} />
     </>
   )
 }
