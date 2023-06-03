@@ -5,13 +5,12 @@ export default function CarouselAuto({ carouselItems }) {
      const carousel_container = useRef()
      const carousel_item = useRef()
 
-     const container = carousel_container.current
-     const scroll_position = container.scrollLeft
-     const pxToScroll_fixed = carousel_item.current.offsetWidth + 16
-     let pxToScroll_dynamic
-
      useEffect(() => {
-          setTimeout(() => {
+          const interval = setInterval(() => {
+               const container = carousel_container.current
+               const scroll_position = container.scrollLeft
+               const pxToScroll_fixed = carousel_item.current.offsetWidth + 16
+               let pxToScroll_dynamic
 
                if (scroll_position % pxToScroll_fixed !== 0) {
                     const times = parseInt(scroll_position / pxToScroll_fixed) + 1
@@ -23,14 +22,16 @@ export default function CarouselAuto({ carouselItems }) {
                }
 
                else {
-                    scroll_position + pxToScroll_fixed
+                    pxToScroll_dynamic = scroll_position + pxToScroll_fixed
                }
 
                container.scrollTo({
                     left: pxToScroll_dynamic,
                     behavior: 'smooth'
                })
-          }, 2000)
+          }, 2500)
+
+          return () => clearInterval(interval)
 
      }, [])
 
