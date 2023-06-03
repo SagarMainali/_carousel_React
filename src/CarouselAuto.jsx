@@ -1,15 +1,17 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 
-export default function CarouselAuto({ carouselItems, carousel_container, carousel_item }) {
+export default function CarouselAuto({ carouselItems }) {
+
+     const carousel_container = useRef()
+     const carousel_item = useRef()
 
      const container = carousel_container.current
      const scroll_position = container.scrollLeft
      const pxToScroll_fixed = carousel_item.current.offsetWidth + 16
+     let pxToScroll_dynamic
 
      useEffect(() => {
           setTimeout(() => {
-
-               let pxToScroll_dynamic
 
                if (scroll_position % pxToScroll_fixed !== 0) {
                     const times = parseInt(scroll_position / pxToScroll_fixed) + 1
@@ -18,7 +20,6 @@ export default function CarouselAuto({ carouselItems, carousel_container, carous
                     } else {
                          pxToScroll_dynamic = scroll_position + ((pxToScroll_fixed * times) - scroll_position)
                     }
-
                }
 
                else {
